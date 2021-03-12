@@ -30,7 +30,6 @@ export default function Header() {
       <div className="sub-bar">
         <p>Search</p>
       </div>
-      <p>I am a header</p>
       <Nav />
     </HeaderStyles>
   );

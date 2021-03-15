@@ -1,3 +1,6 @@
+import { gql } from '@apollo/client';
+import Products from '../components/Products';
+
 export default function ProductPage() {
-  return <h1>Test</h1>;
+  return <Products />;
 }

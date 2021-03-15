@@ -5,6 +5,7 @@ import {
   statelessSessions,
 } from '@keystone-next/keystone/session';
 import { User } from './schemas/User';
+import { Product } from './schemas/Product';
 import 'dotenv/config';
 
 const DEFAULT_DB_URL = 'mongodb://localhost/keystone-sick-fits-tutorial';
@@ -41,13 +42,11 @@ export default withAuth(
     lists: createSchema({
       // Schema items go in here.
       User,
+      Product,
     }),
     ui: {
       // TODO: Change this for roles
-      isAccessAllowed: ({ session }) => {
-        console.log(session);
-        return !!session?.data;
-      },
+      isAccessAllowed: ({ session }) => !!session?.data,
     },
     session: withItemData(statelessSessions(sessionConfig), {
       User: 'id',

@@ -11,7 +11,7 @@ export default function useForm(initial: IFormState = {}) {
     }
 
     if (type === 'file') {
-      value[0] = evt.target.files;
+      [value] = evt.target.files;
     }
 
     setInputs({

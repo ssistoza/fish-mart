@@ -58,7 +58,7 @@ export default function UpdateProduct({ id }) {
             description: inputs.description,
             price: inputs.price,
           },
-        }).catch((err) => console.error());
+        });
 
         // TODO: Handle Submit
         // const resp = await createProduct();
@@ -105,7 +105,6 @@ export default function UpdateProduct({ id }) {
             onChange={handleChange}
           />
         </label>
-
         <button type="submit">Update Product</button>
       </fieldset>
     </Form>

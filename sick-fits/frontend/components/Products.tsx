@@ -1,5 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import styled from 'styled-components';
+import Pagination from './Pagination';
 import Product from './Product';
 
 export const ALL_PRODUCTS_QUERY = gql`

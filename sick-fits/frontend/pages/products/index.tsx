@@ -10,7 +10,7 @@ export default function ProductPage() {
   return (
     <>
       <Pagination page={page ? parseInt(page as string) : 1} />
-      <Products />
+      <Products page={page ? parseInt(page as string) : 1} />
       <Pagination page={page ? parseInt(page as string) : 1} />
     </>
   );

@@ -17,6 +17,7 @@ const SIGNUP_MUTATAION = gql`
 export default function SignUp() {
   const { inputs, handleChange, resetForm } = useForm({
     email: '',
+    name: '',
     password: '',
   });
 

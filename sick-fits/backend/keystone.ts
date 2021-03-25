@@ -11,6 +11,7 @@ import { CartItem } from './schemas/CartItem';
 import 'dotenv/config';
 import { insertSeedData } from './seed-data';
 import { sendPasswordResetemail } from './lib/mail';
+import { extendGraphqlSchema } from './mutations/index';
 
 const DEFAULT_DB_URL = 'mongodb://localhost/keystone-sick-fits-tutorial';
 const databaseURL = process.env.DATABASE_URL || DEFAULT_DB_URL;
@@ -60,6 +61,7 @@ export default withAuth(
       ProductImage,
       CartItem,
     }),
+    extendGraphqlSchema,
     ui: {
       // TODO: Change this for roles
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access

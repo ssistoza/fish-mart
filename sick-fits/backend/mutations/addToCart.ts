@@ -29,7 +29,6 @@ export default async function addToCart(
 
   // 3. See if this current item is in their cart
   // 4. If it is , increment product by 1
-  console.log(allCartItems);
   const [existingCartItem] = allCartItems;
   if (existingCartItem) {
     console.log(

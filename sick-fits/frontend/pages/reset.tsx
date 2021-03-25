@@ -13,7 +13,6 @@ export default function ResetPage({ query }) {
   return (
     <div>
       <Reset token={query.token} />
-      <p>Reset your password {query.token}</p>
     </div>
   );
 }

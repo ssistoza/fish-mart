@@ -35,17 +35,23 @@ export default async function addToCart(
       `There are already ${existingCartItem.quantity}, increment by 1!`
     );
 
-    return context.lists.CartItem.updateOne({
+    const result = await context.lists.CartItem.updateOne({
       id: existingCartItem.id,
       data: { quantity: existingCartItem.quantity + 1 },
+      resolveFields: false,
     });
+
+    return result;
   }
 
   // 5. if it isn't, create a cart item.
-  return context.lists.CartIem.createOne({
+  const result = await context.lists.CartItem.createOne({
     data: {
       product: { connect: { id: productId } },
       user: { connect: { id: sesh.itemId } },
     },
+    resolveFields: false,
   });
+
+  return result;
 }

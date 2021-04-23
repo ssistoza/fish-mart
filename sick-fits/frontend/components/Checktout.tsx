@@ -1,5 +1,12 @@
-import { CardElement, Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
+import {
+  CardElement,
+  Elements,
+  useElements,
+  useStripe,
+} from '@stripe/react-stripe-js';
+import { loadStripe, StripeError } from '@stripe/stripe-js';
+import { useState } from 'react';
+import nProgress from 'nprogress';
 import styled from 'styled-components';
 import SickButton from './styles/SickButton';
 
@@ -14,18 +21,50 @@ const CheckoutFormStyles = styled.form`
 
 const stripeLib = loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY);
 
-export default function Checktout() {
-  const handleSubmit = (evt) => {
+export function ChecktoutForm() {
+  const [error, setError] = useState<StripeError>();
+  const [loading, setLoading] = useState(false);
+  const stripe = useStripe();
+  const elements = useElements();
+
+  const handleSubmit = async (evt) => {
+    // 1. Stopd the form from submitting and turn loader on.
     evt.preventDefault();
-    console.log('doo worrk');
+    setLoading(true);
+    // 2. Start the page transition.
+    nProgress.start();
+    // 3. Create the payment method via stripe. (Toke comes back here if successful)
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: 'card',
+      card: elements.getElement(CardElement),
+    });
+
+    console.log(paymentMethod);
+    // 4. Handle any errors from stripe
+    if (error) {
+      setError(error);
+    }
+    // 5. Send the token from step to our keystone server, through a custom mutation.
+    // 6. Change the page to view the order.
+    // 7. Close the cart
+    // 8. Turn loader off.
+    setLoading(false);
+    nProgress.done();
   };
 
   return (
+    <CheckoutFormStyles onSubmit={handleSubmit}>
+      {error && <p style={{ fontSize: 12 }}>error.message</p>}
+      <CardElement />
+      <SickButton>Checkout Now</SickButton>
+    </CheckoutFormStyles>
+  );
+}
+
+export default function Checkout() {
+  return (
     <Elements stripe={stripeLib}>
-      <CheckoutFormStyles onSubmit={handleSubmit}>
-        <CardElement />
-        <SickButton>Checkout Now</SickButton>
-      </CheckoutFormStyles>
+      <ChecktoutForm />
     </Elements>
   );
 }

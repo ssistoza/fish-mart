@@ -39,7 +39,6 @@ export function ChecktoutForm() {
       card: elements.getElement(CardElement),
     });
 
-    console.log(paymentMethod);
     // 4. Handle any errors from stripe
     if (error) {
       setError(error);

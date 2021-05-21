@@ -3,6 +3,7 @@ import Head from 'next/head';
 import ErrorMessage from '../../components/ErrorMessage';
 import OrderStyles from '../../components/styles/OrderStyles';
 import formatMoney from '../../lib/formatMoney';
+
 const SINGLE_ORDER_QUERY = gql`
   query SINGLE_ORDER_QUERY($id: ID!) {
     order: Order(where: { id: $id }) {
@@ -27,6 +28,7 @@ const SINGLE_ORDER_QUERY = gql`
     }
   }
 `;
+
 export default function SingleOrderPage({ query }) {
   const { data, error, loading } = useQuery(SINGLE_ORDER_QUERY, {
     variables: {

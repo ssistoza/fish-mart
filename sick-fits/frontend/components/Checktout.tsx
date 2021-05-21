@@ -80,7 +80,7 @@ export function ChecktoutForm() {
 
     // 6. Change the page to view the order.
     router.push({
-      pathname: '/order/[id]',
+      pathname: '/orders/[id]',
       query: { id: order.data.checkout.id },
     });
 

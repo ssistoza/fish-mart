@@ -35,6 +35,7 @@
     ]
   },
   "dependencies": {
+    "@keystone-next/types": "^12.0.0",
     "@keystone-next/admin-ui": "^8.0.1",
     "@keystone-next/auth": "^14.0.0",
     "@keystone-next/cloudinary": "^2.0.9",
@@ -50,7 +51,6 @@
     "stripe": "^8.130.0"
   },
   "devDependencies": {
-    "@keystone-next/types": "^12.0.0",
     "@typescript-eslint/eslint-plugin": "^4.9.0",
     "@typescript-eslint/parser": "^4.9.0",
     "babel-eslint": "^10.1.0",

@@ -15,6 +15,7 @@ import 'dotenv/config';
 import { insertSeedData } from './seed-data';
 import { sendPasswordResetemail } from './lib/mail';
 import { extendGraphqlSchema } from './mutations/index';
+import { permissionsList } from './schemas/fields';
 
 const DEFAULT_DB_URL = 'mongodb://localhost/keystone-sick-fits-tutorial';
 const databaseURL = process.env.DATABASE_URL || DEFAULT_DB_URL;
@@ -74,7 +75,7 @@ export default withAuth(
       isAccessAllowed: ({ session }) => !!session?.data,
     },
     session: withItemData(statelessSessions(sessionConfig), {
-      User: 'id name email',
+      User: `id name email role { ${permissionsList.join(' ')} }`,
     }),
   })
 );

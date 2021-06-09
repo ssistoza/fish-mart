@@ -25,8 +25,10 @@ export const permissions = {
 // Rules can return a boolean or a filter which limits items.
 export const rules = {
   canManageProducts({ session }: ListAccessArgs) {
+    if (!isSignedIn({ session })) {
+      return false;
+    }
     // 1. Do they have the permission of canManageProducts
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     if (permissions.canManageProducts({ session })) {
       return true;
     }
@@ -34,8 +36,32 @@ export const rules = {
     // 2. If not, do they own this item?
     return { user: { id: session.itemId } };
   },
+  canOrder({ session }: ListAccessArgs) {
+    if (!isSignedIn({ session })) {
+      return false;
+    }
+
+    if (permissions.canManageCart({ session })) {
+      // 1. Do they have the permission of canOrder
+      return true;
+    }
+
+    // 2. If not, do they own this item?
+    return { user: { id: session.itemId } };
+  },
+  canManageOrderItems({ session }: ListAccessArgs) {
+    if (!isSignedIn({ session })) {
+      return false;
+    }
+    // 1. Do they have the permission of canOrder
+    if (permissions.canManageCart({ session })) {
+      return true;
+    }
+
+    // 2. If not, do they own this item?
+    return { order: { user: { id: session.itemId } } };
+  },
   canReadProducts({ session }: ListAccessArgs) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     if (permissions.canManageProducts({ session })) {
       return true;
     }

@@ -1,20 +1,22 @@
 import { integer, relationship, text, virtual } from '@keystone-next/fields';
 import { list } from '@keystone-next/keystone/schema';
+import { schema } from '@keystone-next/types';
 import { isSignedIn, rules } from '../access';
 import formatMoney from '../lib/formatMoney';
 
 export const Order = list({
   access: {
     create: isSignedIn,
-    read: rules.canOrder,
+    read: rules.canOrder.bind(this),
     update: () => false,
     delete: () => false,
   },
   fields: {
     label: virtual({
-      graphQLReturnType: 'String',
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      resolver: (item) => `Cool ${formatMoney(item.total)}`,
+      field: schema.field({
+        type: schema.String,
+        resolve: (item) => `Cool ${formatMoney(item.total)}`,
+      }),
     }),
     total: integer(),
     items: relationship({ ref: 'OrderItem.order', many: true }),

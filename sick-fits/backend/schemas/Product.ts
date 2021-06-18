@@ -5,9 +5,9 @@ import { isSignedIn, rules } from '../access';
 export const Product = list({
   access: {
     create: isSignedIn,
-    read: rules.canReadProducts,
-    update: rules.canManageProducts,
-    delete: rules.canManageProducts,
+    read: rules.canReadProducts.bind(this),
+    update: rules.canManageProducts.bind(this),
+    delete: rules.canManageProducts.bind(this),
   },
   fields: {
     name: text({ isRequired: true }),

@@ -5,7 +5,7 @@ import { isSignedIn, rules } from '../access';
 export const OrderItem = list({
   access: {
     create: isSignedIn,
-    read: rules.canManageOrderItems,
+    read: rules.canManageOrderItems.bind(this),
     update: () => false,
     delete: () => false,
   },

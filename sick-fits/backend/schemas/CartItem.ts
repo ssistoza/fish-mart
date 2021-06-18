@@ -5,9 +5,9 @@ import { isSignedIn, rules } from '../access';
 export const CartItem = list({
   access: {
     create: isSignedIn,
-    read: rules.canOrder,
-    update: rules.canOrder,
-    delete: rules.canOrder,
+    read: rules.canOrder.bind(this),
+    update: rules.canOrder.bind(this),
+    delete: rules.canOrder.bind(this),
   },
   ui: {
     listView: {

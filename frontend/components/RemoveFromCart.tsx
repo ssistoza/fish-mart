@@ -1,4 +1,9 @@
-import { gql, useMutation } from '@apollo/client';
+import {
+  FetchResult,
+  gql,
+  MutationFunctionOptions,
+  useMutation,
+} from '@apollo/client';
 import styled from 'styled-components';
 
 const REMOVE_FROM_CART_MUTATION = gql`
@@ -39,6 +44,7 @@ export default function RemoveFromCart({ id }) {
 
   return (
     <BigButton
+      //@ts-ignore
       onClick={removeFromCart}
       disabled={loading}
       title="Remove from Cart"

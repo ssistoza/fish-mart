@@ -56,6 +56,7 @@ export default function Cart() {
   if (!me) return null;
 
   return (
+    //@ts-ignore
     <CartStyles open={cartOpen}>
       <header>
         <Supreme>{me.name}'s Cart</Supreme>
